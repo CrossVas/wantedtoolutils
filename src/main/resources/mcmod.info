@@ -1,0 +1,15 @@
+[
+{
+  "modid": "wantedtoolutils",
+  "name": "Wanted Tool Utils",
+  "description": "Wanted Tool Utils to play with. An expansion for IC2, Redstone Arsenal and EnderIO tools.",
+  "mcversion": "[1.7.10]",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["CrossVas"],
+  "credits": "IC2 Team for inspiration. Mekanism team for api.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
