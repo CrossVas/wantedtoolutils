@@ -16,28 +16,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class WantedToolUtilsEvents {
-
-	@SubscribeEvent
-	public void onItemUseEvent(PlayerInteractEvent event) {
-		EntityPlayer player = event.entityPlayer;
-		ItemStack stack = player.getHeldItem();
-		World world = event.world;
-
-		boolean air = event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR;
-
-		if (!world.isRemote) {
-			if (air && player.getHeldItem() != null && WantedUtils.getStackCondition(stack)) {
-				onItemRightClick(player.getHeldItem(), world, player);
-			}
-		}
-	}
+public class BlockBreakEvent {
 
 	@SubscribeEvent
 	public void onBlockBreak(BlockEvent.BreakEvent event) {
@@ -54,22 +37,7 @@ public class WantedToolUtilsEvents {
 			}
 		}
 	}
-
-	public void onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		NBTTagCompound tag = WantedUtils.getOrCreateNbtData(stack);
-		if (player.isSneaking()) {
-			if (!tag.getBoolean("ex_vein")) {
-				tag.setBoolean("ex_vein", true);
-				// do chat
-				player.addChatMessage(new ChatComponentText(stack.getDisplayName() + ": " + "Extended Vein On"));
-			} else {
-				tag.setBoolean("ex_vein", false);
-				// do chat
-				player.addChatMessage(new ChatComponentText(stack.getDisplayName() + ": " + "Extended Vein Off"));
-			}
-		}
-	}
-
+	
 	public boolean onBlockStartBreak(ItemStack itemstack, int x, int y, int z, EntityPlayer player) {
 		Block block = player.worldObj.getBlock(x, y, z);
 		int meta = player.worldObj.getBlockMetadata(x, y, z);
@@ -91,7 +59,7 @@ public class WantedToolUtilsEvents {
 			}
 		}
 		boolean extended_vein = false;
-		NBTTagCompound tag = WantedUtils.getOrCreateNbtData(itemstack);
+		NBTTagCompound tag = itemstack.getTagCompound();
 		if (tag.getBoolean("ex_vein")) {
 			extended_vein = true;
 		}

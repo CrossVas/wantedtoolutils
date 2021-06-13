@@ -1,7 +1,8 @@
 package com.crossvas.wantedtoolutils.proxy;
 
 import com.crossvas.wantedtoolutils.config.WantedToolUtilsConfig;
-import com.crossvas.wantedtoolutils.events.WantedToolUtilsEvents;
+import com.crossvas.wantedtoolutils.events.BlockBreakEvent;
+import com.crossvas.wantedtoolutils.events.ItemUseEvent;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -18,7 +19,8 @@ public class CommonProxy {
 	
 	public void postInit(FMLPostInitializationEvent event) {
 		// do events here
-		MinecraftForge.EVENT_BUS.register(new WantedToolUtilsEvents());
+		MinecraftForge.EVENT_BUS.register(new BlockBreakEvent());
+		MinecraftForge.EVENT_BUS.register(new ItemUseEvent());
 	}
 	
 }

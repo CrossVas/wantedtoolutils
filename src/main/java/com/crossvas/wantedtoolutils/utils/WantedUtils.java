@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class WantedUtils {
-
+	
 	public static WantedToolUtilsConfig config;
 
 	public static boolean hasIC2() {
@@ -38,9 +38,9 @@ public class WantedUtils {
 	}
 	
 	public static boolean getStackCondition(ItemStack stack) {
-		if (stack == null) {
-			return false;
-		}
+//		if (stack == null) {
+//			return false;
+//		}
 		if (hasRedstoneArsenal() && stack.getItem() instanceof cofh.redstonearsenal.item.tool.ItemPickaxeRF
 				&& config.enableRSACompat) {
 			return true;
@@ -54,7 +54,7 @@ public class WantedUtils {
 	}
 
 	public static boolean getStackEnergyCondition(ItemStack stack) {
-		NBTTagCompound tag = getOrCreateNbtData(stack);
+		NBTTagCompound tag = stack.getTagCompound();
 		if (hasIC2() && stack.getItem() instanceof ic2.core.item.tool.ItemDrill
 				&& ElectricItem.manager.canUse(stack, 200)) {
 			return true;
@@ -76,15 +76,6 @@ public class WantedUtils {
 				value = true;
 		}
 		return value;
-	}
-
-	public static NBTTagCompound getOrCreateNbtData(ItemStack itemStack) {
-		NBTTagCompound tag = itemStack.getTagCompound();
-		if (tag == null) {
-			tag = new NBTTagCompound();
-			itemStack.setTagCompound(tag);
-		}
-		return tag;
 	}
 
 	/**
